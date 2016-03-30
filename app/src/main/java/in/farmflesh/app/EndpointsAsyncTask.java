@@ -54,10 +54,10 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
         context = params[0].first;
         //String name = params[0].second;
-        String email = params[0].second;
+        String reg = params[0].second;
 
         try {
-            return myApiService.takeEmail(email).execute().getData();
+            return myApiService.takeEmail(reg).execute().getData();
             //return myApiService.takeEmail(reg).execute().getData();
 
         } catch (IOException e) {
