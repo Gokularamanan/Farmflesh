@@ -40,7 +40,7 @@ public class WelcomeActivity extends AppCompatActivity implements AsyncResponse 
                     //execute the async task
                     JSONObject jo = new JSONObject();
                     try {
-                        jo.put("email", "gok@gmail.com");
+                        jo.put("email", "goku@gmail.com");
                         jo.put("name", "Doe");
                         jo.put("phone", "32432");
                         asyncTask.execute(new Pair<Context, String>(WelcomeActivity.this, jo.toString()));
