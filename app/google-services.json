@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_id": "farmflesh",
+    "project_number": "919074574548",
+    "name": "farmflesh"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919074574548:android:7148650404c3fad9",
+        "client_id": "android:in.farmflesh.app",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "in.farmflesh.app",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "919074574548-8mmgipkvduu20mebm51n0a20hecjn3im.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.farmflesh.app",
+            "certificate_hash": "C8DF7CE60B436C5A6AD634E308D076714714140D"
+          }
+        },
+        {
+          "client_id": "919074574548-e94pdfo5t8l80874gev8fh5k1s7kqajs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
