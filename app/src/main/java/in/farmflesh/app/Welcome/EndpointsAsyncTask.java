@@ -1,4 +1,4 @@
-package in.farmflesh.app;
+package in.farmflesh.app.Welcome;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -29,6 +29,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
     private static MyApi myApiService = null;
     private Context context;
     public AsyncResponse delegate = null;
+    private static final String TAG = "EndpointsAsyncTask";
 
     private ProgressDialog dialog;
 
@@ -44,7 +45,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
-        if(myApiService == null) {  // Only do this once
+        if (myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     .setRootUrl("https://farmflesh.appspot.com/_ah/api/");
@@ -71,7 +72,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
             dialog.dismiss();
         }
         delegate.processFinish(result);
-        Log.i("Gok", result);
+        Log.i(TAG, result);
         Toast.makeText(context, result, Toast.LENGTH_LONG).show();
     }
 }

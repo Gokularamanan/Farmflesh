@@ -6,7 +6,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_gcm_reg">GCM Reg</string>
-    <string name="action_gcm_gmail_reg">GCM and Gmail Reg</string>
+    <string name="action_gcm_gmail_reg">GCM reg</string>
     <string name="action_login">Login</string>
     <string name="signed_out">Signed out</string>
     <string name="my_account">My account</string>
@@ -53,5 +53,50 @@
     <!-- Server Client ID.  This should be a valid Web OAuth 2.0 Client ID obtained
          from https://console.developers.google.com/ -->
     <string name="server_client_id">YOUR_SERVER_CLIENT_ID</string>
+    <string name="welcome">Welcome to farmflesh- Tutorial</string>
+    <string name="next_button">Next(Gmail reg)</string>
+
+    <string name="perm_req_body_header">For Moto Loop to work, it must use:\n\n</string>
+    <string name="perm_req_body_footer">Select \"Allow\" on the following screen to grant permission.\n</string>
+    <string name="perm_req_sms_header">For family invitation to work, Moto Loop must use:\n\n</string>
+    <string name="perm_req_body_location">\t\t\u2022 Location - to show your family\'s location on a map\n\n</string>
+    <string name="perm_req_body_contacts">\t\t\u2022 Contacts - to read your Motorola ID account\n\n</string>
+    <string name="perm_req_body_calendar">\t\t\u2022 Calendar - to check if a family member is busy\n\n</string>
+    <string name="perm_req_body_phone">\t\t\u2022 Phone - to read your SIM number\n\n</string>
+    <string name="perm_req_loop_storage">\t\t\u2022 Storage - to keep your family data in sync\n\n</string>
+    <string name="perm_req_loop_sms">\t\t\u2022 SMS - To send a link to download Loop\n\n</string>
+    <string name="perm_req_loop_sms_verify">\t\t\u2022 SMS - To verify your mobile number\n\n</string>
+    <string name="perm_req_title">Permissions required</string>
+    <string name="cont">CONTINUE</string>
+    <string name="app_info">APP INFO</string>
+    <string name="not_now">NOT NOW</string>
+    <string name="perm_denied">Moto Loop needs permission to access some things on your device. Select \“Permissions\” in App info to re-enable.</string>
+    <string name="welcome_part_two_send_body">With Loop, the devices in\r\nyour home can automatically\r\nadjust based on who\'s there&#8212;or not.</string>
+    <string name="welcome_part_one_send_title">You don\'t have to ask</string>
+    <string name="welcome_part_two_send_title">Comfort is always on</string>
+    <string name="welcome_part_one_send_body">Loop lets you know where your loved ones are&#8212;no need for individual calls or message updates.</string>
+    <string name="welcome_title">Welcome to Moto Loop\u2122</string>
+    <string name="welcome_getStarted">GET STARTED</string>
+    <string name="welcome_msg">Keep your family and home \r\n connected in one place.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_main_activity">Hello blank activity-main</string>
+    <string name="title_activity_test">test</string>
+    <string name="undo">undo</string>
+
+    <string-array name="Planets">
+        <item>Sun</item>
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
+
 
 </resources>

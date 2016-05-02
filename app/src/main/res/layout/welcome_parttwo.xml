@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/start_tutorial"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@drawable/img_intro_3">
+
+    <TextView
+        android:id="@+id/welcome_1_header_1"
+        style="@style/RobotoLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/welcome_part_two_send_title"
+        android:textColor="@color/navy"
+        android:textSize="24sp" />
+
+
+    <Button
+        android:id="@+id/welcome_next"
+        style="@style/Button1Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:minHeight="36dp"
+        android:text="@string/next_button" />
+
+    <TextView
+        android:id="@+id/welcome_1_body_1"
+        style="@style/RobotoLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/welcome_next"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/welcome_part_two_send_body"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+
+</RelativeLayout>

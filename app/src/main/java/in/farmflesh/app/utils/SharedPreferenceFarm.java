@@ -14,6 +14,7 @@ public class SharedPreferenceFarm {
     public static final String PREFS_KEY_NAME = "FARM_PREFS_NAME";
     public static final String PREFS_KEY_IS_GMAIL_REG = "FARM_PREFS_IS_GMAIL_REG";
     public static final String PREFS_KEY_IS_GCM_REG = "FARM_PREFS_IS_GCM_REG";
+    public static final String PREFS_KEY_IS_PRIVACY_ACCEPTED = "FARM_PREFS_IS_PRIVACY_ACCEPTED";
 
     public SharedPreferenceFarm() {
         super();

@@ -1,11 +1,11 @@
-package in.farmflesh.app;
+package in.farmflesh.app.Main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Pair;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,43 +15,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import in.farmflesh.app.Fragement.ItemFragment;
+import in.farmflesh.app.R;
+import in.farmflesh.app.Welcome.GmailSignInActivity;
+import in.farmflesh.app.Welcome.MyAccountActivity;
 import in.farmflesh.app.utils.SharedPreferenceFarm;
 
-public class MainActivity extends AppCompatActivity
+public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int WELCOME_VIEW = 4;
     private SharedPreferenceFarm sharedPreferenceFarm;
+    private static final String RESULT = "result";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        sharedPreferenceFarm = new SharedPreferenceFarm();
-        boolean isRegUser = sharedPreferenceFarm.getBooleanPrefByKey(getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_IS_GMAIL_REG);
-        if (!isRegUser) {
-            handleWelcomeScreenSqueuence();
-            return;
-        }
-        loadContent();
-
-
-
-    }
-
-    private void loadContent() {
+        setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+
+/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -62,14 +56,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
-    private void handleWelcomeScreenSqueuence() {
-        Intent i = new Intent(this, WelcomeActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        synchronized (this) {
-            startActivityForResult(i, WELCOME_VIEW);
-        }
-    }
+    private Boolean exit = false;
 
     @Override
     public void onBackPressed() {
@@ -77,7 +64,25 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (exit) {
+                Intent resultData = new Intent();
+                resultData.putExtra(RESULT, true);
+                setResult(RESULT_OK, resultData);
+                finish(); // finish activity
+                super.onBackPressed();
+            } else {
+                Toast.makeText(this, "Press Back again to Exit.",
+                        Toast.LENGTH_SHORT).show();
+                exit = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        exit = false;
+                    }
+                }, 3 * 1000);
+
+            }
+
         }
     }
 
@@ -92,10 +97,12 @@ public class MainActivity extends AppCompatActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem myAccount = menu.findItem(R.id.action_login);
         MenuItem myAccountSignOut = menu.findItem(R.id.action_logout);
-        if (sharedPreferenceFarm.getBooleanPrefByKey(getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_IS_GMAIL_REG)) {
+        sharedPreferenceFarm = new SharedPreferenceFarm();
+        if (sharedPreferenceFarm.getBooleanPrefByKey(getApplicationContext(),
+                SharedPreferenceFarm.PREFS_KEY_IS_GMAIL_REG)) {
             myAccount.setTitle(R.string.my_account);
             myAccountSignOut.setVisible(true);
-        }else {
+        } else {
             myAccount.setTitle(R.string.signed_in);
             myAccountSignOut.setVisible(false);
         }
@@ -114,16 +121,19 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         if (id == R.id.action_login) {
-            if (sharedPreferenceFarm.getBooleanPrefByKey(getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_IS_GMAIL_REG)) {
+            sharedPreferenceFarm = new SharedPreferenceFarm();
+            if (sharedPreferenceFarm.getBooleanPrefByKey(getApplicationContext(),
+                    SharedPreferenceFarm.PREFS_KEY_IS_GMAIL_REG)) {
                 Intent myAccountIntent = new Intent(this, MyAccountActivity.class);
                 startActivity(myAccountIntent);
-            }else {
-                Intent signinIntent = new Intent(this, SignInActivity.class);
+            } else {
+                Intent signinIntent = new Intent(this, GmailSignInActivity.class);
                 startActivity(signinIntent);
             }
         }
         if (id == R.id.action_logout) {
-            Intent signinIntent = new Intent(this, SignInActivity.class);
+            Intent signinIntent = new Intent(this, GmailSignInActivity.class);
+            signinIntent.putExtra("isLogoutFlow", true);
             startActivity(signinIntent);
         }
 
@@ -143,6 +153,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_switch, new ItemFragment());
+            ft.commit();
 
         } else if (id == R.id.nav_share) {
 

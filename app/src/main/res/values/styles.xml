@@ -23,4 +23,25 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="Button1Primary">
+        <!--item name="android:theme">button</item-->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@drawable/button_primary_selector</item>
+        <item name="android:background">#0000</item>
+    </style>
+
+    <style name="RobotoLight">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="RobotoMedium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Button1Secondary" parent="Button1Primary">
+        <item name="android:textColor">#000000</item>
+    </style>
+
 </resources>

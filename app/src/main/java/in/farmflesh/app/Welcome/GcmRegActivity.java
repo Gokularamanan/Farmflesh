@@ -1,11 +1,10 @@
-package in.farmflesh.app;
+package in.farmflesh.app.Welcome;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -15,12 +14,15 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import in.farmflesh.app.R;
 import in.farmflesh.app.utils.AsyncResponse;
-import in.farmflesh.app.utils.RegistrationRecord;
 import in.farmflesh.app.utils.SharedPreferenceFarm;
 
-public class WelcomeActivity extends AppCompatActivity implements AsyncResponse {
+public class GcmRegActivity extends Activity implements AsyncResponse {
     private SharedPreferenceFarm sharedPreferenceFarm;
+
+    private static final String TAG = "GcmRegActivity";
+    private static final String RESULT = "result";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,23 +31,27 @@ public class WelcomeActivity extends AppCompatActivity implements AsyncResponse 
         sharedPreferenceFarm = new SharedPreferenceFarm();
 
         Button button = (Button) findViewById(R.id.signIn_welcome);
-        final EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(WelcomeActivity.this);
+        final EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(GcmRegActivity.this);
         asyncTask.delegate = this;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isGmailReg = sharedPreferenceFarm.getBooleanPrefByKey
-                        (getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_IS_GMAIL_REG);
-                if (asyncTask.getStatus() == AsyncTask.Status.PENDING || !isGmailReg) {
+                String emailId = sharedPreferenceFarm.getStringPrefByKey
+                        (getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_EMAIL);
+                String emailName = sharedPreferenceFarm.getStringPrefByKey
+                        (getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_NAME);
+                Log.d(TAG, "emailId:" +emailId);
+                Log.d(TAG, "emailName:" +emailName);
+                if (asyncTask.getStatus() == AsyncTask.Status.PENDING || (emailId != null)) {
                     //execute the async task
                     JSONObject jo = new JSONObject();
                     try {
-                        jo.put("email", "goku@gmail.com");
-                        jo.put("name", "Doe");
-                        jo.put("phone", "32432");
-                        asyncTask.execute(new Pair<Context, String>(WelcomeActivity.this, jo.toString()));
+                        jo.put("email", emailId);
+                        jo.put("name", emailName);
+                        jo.put("phone", "9901814275");
+                        asyncTask.execute(new Pair<Context, String>(GcmRegActivity.this, jo.toString()));
                     }catch(JSONException ex){
-                        Log.d("Gok", ex.toString());
+                        Log.d(TAG, ex.toString());
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Already GCM registered", Toast.LENGTH_LONG).show();
@@ -56,14 +62,21 @@ public class WelcomeActivity extends AppCompatActivity implements AsyncResponse 
 
     @Override
     public void processFinish(String output) {
-        if (output.equals("Hi, Manfred")) {
+        sharedPreferenceFarm.saveBooleanPrefByKey
+                (getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_IS_GCM_REG, true);
+        Log.d(TAG, "GCM reg success");
+        Intent resultData = new Intent();
+        resultData.putExtra(RESULT, true);
+        setResult(RESULT_OK, resultData);
+        finish();
+        /*if (output.equals("Hi, Manfred")) {
             Log.d("Gok", "GCM reg success");
             sharedPreferenceFarm.saveBooleanPrefByKey
                     (getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_IS_GCM_REG, true);
-            Intent signinIntent = new Intent(this, SignInActivity.class);
+            Intent signinIntent = new Intent(this, GmailSignInActivity.class);
             startActivity(signinIntent);
         } else {
             Log.e("Gok", "GCM reg fail");
-        }
+        }*/
     }
 }

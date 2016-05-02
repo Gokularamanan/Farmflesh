@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#333333"
+    android:orientation="horizontal"
+    android:minHeight="55dp"
+    android:clickable="true">
+
+    <TextView
+        android:id="@+id/unity_msg"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:paddingStart="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_weight="1"
+        android:layout_gravity="start"
+        android:gravity="center"
+        />
+
+    <Button
+        android:id="@+id/undo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textColor="@android:color/holo_red_dark"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:paddingEnd="5dp"
+        android:layout_gravity="end"
+        android:textSize="16sp"
+        style="@style/Button1Secondary"
+        android:text="@string/undo"
+        android:visibility="gone"
+        />
+
+</LinearLayout>

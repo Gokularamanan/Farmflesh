@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/start_tutorial"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@drawable/img_intro_1">
+
+    <TextView
+        android:id="@+id/start_tutorial_title"
+        style="@style/RobotoLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/welcome_title"
+        android:textColor="@color/navy"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/start_tutorial_button"
+        style="@style/RobotoMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/red_background"
+        android:gravity="center"
+        android:minHeight="36dp"
+        android:minWidth="312dp"
+        android:text="@string/welcome_getStarted"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/start_tutorial_msg"
+        style="@style/RobotoLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/start_tutorial_button"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/welcome_msg"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+
+
+</RelativeLayout>

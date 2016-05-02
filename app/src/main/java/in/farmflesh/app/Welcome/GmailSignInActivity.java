@@ -1,4 +1,4 @@
-package in.farmflesh.app;
+package in.farmflesh.app.Welcome;
 
 /**
  * Created by RBP687 on 3/22/2016.
@@ -22,29 +22,39 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import in.farmflesh.app.R;
 import in.farmflesh.app.utils.SharedPreferenceFarm;
 
 /**
  * Activity to demonstrate basic retrieval of the Google user's ID, email address, and basic
  * profile.
  */
-public class SignInActivity extends AppCompatActivity implements
+public class GmailSignInActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
-    private static final String TAG = "SignInActivity";
+    private static final String TAG = "GmailSignInActivity";
     private static final int RC_SIGN_IN = 9001;
+    private static final String RESULT = "result";
 
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
     private SharedPreferenceFarm sharedPreference;
+    private boolean isLogoutFlow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         sharedPreference = new SharedPreferenceFarm();
+
+        Bundle extras = getIntent().getExtras();
+        if(extras == null) {
+            isLogoutFlow=false;
+        }else {
+            isLogoutFlow = extras.getBoolean("isLogoutFlow");
+        }
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
@@ -57,7 +67,8 @@ public class SignInActivity extends AppCompatActivity implements
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         // [END configure_signin]
@@ -89,7 +100,8 @@ public class SignInActivity extends AppCompatActivity implements
     public void onStart() {
         super.onStart();
 
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        OptionalPendingResult<GoogleSignInResult> opr =
+                Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (opr.isDone()) {
             // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
             // and the GoogleSignInResult will be available instantly.
@@ -111,6 +123,8 @@ public class SignInActivity extends AppCompatActivity implements
         }
     }
 
+
+
     // [START onActivityResult]
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -131,13 +145,23 @@ public class SignInActivity extends AppCompatActivity implements
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-            sharedPreference.saveStringPrefByKey(getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_EMAIL, acct.getEmail());
-            sharedPreference.saveStringPrefByKey(getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_NAME, acct.getDisplayName());
+            sharedPreference.saveStringPrefByKey(getApplicationContext(),
+                    SharedPreferenceFarm.PREFS_KEY_EMAIL, acct.getEmail());
+            sharedPreference.saveStringPrefByKey(getApplicationContext(),
+                    SharedPreferenceFarm.PREFS_KEY_NAME, acct.getDisplayName());
             updateUI(true);
+            if (!isLogoutFlow) {
+                Intent resultData = new Intent();
+                resultData.putExtra(RESULT, true);
+                setResult(RESULT_OK, resultData);
+                finish();
+            }
         } else {
             // Signed out, show unauthenticated UI.
-            sharedPreference.removePrefByKey(getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_EMAIL);
-            sharedPreference.removePrefByKey(getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_NAME);
+            sharedPreference.removePrefByKey(getApplicationContext(),
+                    SharedPreferenceFarm.PREFS_KEY_EMAIL);
+            sharedPreference.removePrefByKey(getApplicationContext(),
+                    SharedPreferenceFarm.PREFS_KEY_NAME);
             updateUI(false);
         }
     }
@@ -202,17 +226,21 @@ public class SignInActivity extends AppCompatActivity implements
     }
 
     private void updateUI(boolean signedIn) {
-        sharedPreference.saveBooleanPrefByKey(getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_IS_GMAIL_REG, signedIn);
+        sharedPreference.saveBooleanPrefByKey(getApplicationContext(),
+                SharedPreferenceFarm.PREFS_KEY_IS_GMAIL_REG, signedIn);
         if (signedIn) {
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText(R.string.signed_out);
-            sharedPreference.removePrefByKey(getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_EMAIL);
-            sharedPreference.removePrefByKey(getApplicationContext(), SharedPreferenceFarm.PREFS_KEY_NAME);
+            sharedPreference.removePrefByKey(getApplicationContext(),
+                    SharedPreferenceFarm.PREFS_KEY_EMAIL);
+            sharedPreference.removePrefByKey(getApplicationContext(),
+                    SharedPreferenceFarm.PREFS_KEY_NAME);
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
         }
+
     }
 
     @Override

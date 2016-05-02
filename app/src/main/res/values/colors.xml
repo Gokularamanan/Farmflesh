@@ -8,4 +8,8 @@
     <color name="blue_grey_700">#455A64</color>
     <color name="blue_grey_800">#37474F</color>
     <color name="blue_grey_900">#263238</color>
+    <color name = "navy">#1e2c43</color>
+    <color name = "red_background">#ff1643</color>
+    <color name = "grey_disabled">#504E4E4E</color>
+    <color name="redA400">#FF1744</color>
 </resources>
