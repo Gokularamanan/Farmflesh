@@ -4,6 +4,7 @@ package in.farmflesh.backend;
 public class MyBean {
 
     private String myData;
+    private int myIntData;
 
     public String getData() {
         return myData;
@@ -11,5 +12,13 @@ public class MyBean {
 
     public void setData(String data) {
         myData = data;
+    }
+
+    public int getIntData() {
+        return myIntData;
+    }
+
+    public void setIntData(int data) {
+        myIntData = data;
     }
 }
